@@ -4,7 +4,8 @@ A sokoban CLI implemented in Python.
 
 ## Prerequisites
 
-python, numpy
+- python
+- numpy
 
 ## Installation
 
@@ -19,6 +20,7 @@ python, numpy
     ```bash
     cd sokoban-py
     ```
+    
 3. Run the code:
 
     ```bash
