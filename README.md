@@ -17,7 +17,7 @@ python, numpy
 2. Enter the directory:
 
     ```bash
-    cd sokoban-py`
+    cd sokoban-py
     ```
 3. Run the code:
 
