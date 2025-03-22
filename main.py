@@ -1,5 +1,6 @@
 import random
 import numpy
+import tomllib
 
 class Object:
     def __init__(self, symbol, colour):
@@ -9,11 +10,15 @@ class Object:
     def __str__(self):
         return f"{self.colour}{self.symbol}\x1b[0m"
 
-(HEIGHT, WIDTH) = (10, 20)
-SPACE = Object('*', '\x1b[2m')
-OBSTACLE = Object('%', '\x1b[1;33m')
-PLAYER = Object('@', '\x1b[1;36m')
-TARGET = Object('X', '\x1b[1;35m')
+with open ("config.toml", mode = "rb") as fp:
+    config = tomllib.load(fp)
+
+(HEIGHT, WIDTH) = (config['height'], config['width'])
+
+SPACE = Object(config['space']['symbol']['neutral'], config['space']['colour']['neutral'].replace("\\x1b", "\x1b"))
+OBSTACLE = Object(config['obstacle']['symbol']['neutral'], config['obstacle']['colour']['neutral'].replace("\\x1b", "\x1b"))
+PLAYER = Object(config['player']['symbol']['neutral'], config['player']['colour']['neutral'].replace("\\x1b", "\x1b"))
+TARGET = Object(config['target']['symbol']['neutral'], config['target']['colour']['neutral'].replace("\\x1b", "\x1b"))
 
 player = numpy.array([0, 0])
 obstacle = numpy.array([random.randint(1, WIDTH - 2), random.randint(1, HEIGHT - 2)])
@@ -63,8 +68,6 @@ if __name__ == "__main__":
         moves = input("move (h/j/k/l): ")
         for move in moves:
             sync()
-            # if not game:
-            #     break
             change_vec = numpy.array([0, 0])
 
             if not move in 'hjkl':
@@ -90,19 +93,22 @@ if __name__ == "__main__":
                 obstacle += change_vec
                 if grid[index(obstacle)] == TARGET:
                     game = False
-                    OBSTACLE = Object('$', '\x1b[1;32m')
-                    SPACE = Object(' ', '')
+                    SPACE = Object(config['space']['symbol']['win'], config['space']['colour']['win'].replace("\\x1b", "\x1b"))
+                    OBSTACLE = Object(config['obstacle']['symbol']['win'], config['obstacle']['colour']['win'].replace("\\x1b", "\x1b"))
+                    PLAYER = Object(config['player']['symbol']['win'], config['player']['colour']['win'].replace("\\x1b", "\x1b"))
+                    TARGET = Object(config['target']['symbol']['win'], config['target']['colour']['win'].replace("\\x1b", "\x1b"))
+                    print_grid()
+                    print("You win!")
+                    break
             else:
                 player += change_vec
 
             if obstacle[0] in (0, WIDTH - 1) and obstacle[1] in (0, HEIGHT - 1):
                 game = False
-                OBSTACLE = Object('%', '\x1b[1;31m')
-                SPACE = Object(' ', '')
+                SPACE = Object(config['space']['symbol']['loss'], config['space']['colour']['loss'].replace("\\x1b", "\x1b"))
+                OBSTACLE = Object(config['obstacle']['symbol']['loss'], config['obstacle']['colour']['loss'].replace("\\x1b", "\x1b"))
+                PLAYER = Object(config['player']['symbol']['loss'], config['player']['colour']['loss'].replace("\\x1b", "\x1b"))
+                TARGET = Object(config['target']['symbol']['loss'], config['target']['colour']['loss'].replace("\\x1b", "\x1b"))
                 print_grid(False)
                 print("You're stuck!")
                 break
-
-            if not game:
-                print_grid()
-                print("You win!")

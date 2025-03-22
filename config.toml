@@ -1,0 +1,43 @@
+height = 5
+width = 10
+
+[player.symbol]
+neutral = "@"
+win = "@"
+loss = "@"
+
+[player.colour]
+neutral = '\x1b[1;36m'
+win = '\x1b[1;36m'
+loss = '\x1b[1;31m'
+
+[obstacle.symbol]
+neutral = "%"
+win = "$"
+loss = "X"
+
+[obstacle.colour]
+neutral = '\x1b[1;33m'
+win = '\x1b[1;32m'
+loss = '\x1b[1;31m'
+
+[target.symbol]
+neutral = "X"
+win = " "
+loss = "X"
+
+[target.colour]
+neutral = '\x1b[1;35m'
+win = '\x1b[0m'
+loss = '\x1b[1;31m'
+
+[space.symbol]
+neutral = "*"
+win = " "
+loss = " "
+
+[space.colour]
+neutral = '\x1b[2m'
+win = '\x1b[2m'
+loss = '\x1b[2m'
+
