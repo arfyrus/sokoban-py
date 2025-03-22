@@ -65,7 +65,7 @@ def valid_move(pos):
 if __name__ == "__main__":
     while (game):
         print_grid()
-        moves = input("move (h/j/k/l): ")
+        moves = input("Move (h/j/k/l): ")
         for move in moves:
             sync()
             change_vec = numpy.array([0, 0])

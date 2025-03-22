@@ -8,13 +8,13 @@ loss = "@"
 
 [player.colour]
 neutral = '\x1b[1;36m'
-win = '\x1b[1;36m'
+win = '\x1b[1;32m'
 loss = '\x1b[1;31m'
 
 [obstacle.symbol]
 neutral = "%"
 win = "$"
-loss = "X"
+loss = "%"
 
 [obstacle.colour]
 neutral = '\x1b[1;33m'
