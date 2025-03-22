@@ -30,3 +30,5 @@ python, numpy
 - Use `h`/`j`/`k`/`l` to move left/down/up/right.
 - Push the obstacle to the target.
 - Chain multiple moves in one entry (eg., `lll` to move left 3 times)
+
+<!--Todo: config and script-->
