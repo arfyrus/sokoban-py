@@ -108,9 +108,9 @@ if __name__ == "__main__":
             else:
                 player += change_vec
 
-            if obstacle[0] in (0, WIDTH - 1) and obstacle[1] in (0, HEIGHT - 1):
-                # TODO:
-                # Also lose if the obstacle is on an edge where the target isn't since it's impossible to remove from that side.
+            if (obstacle[0] in (0, WIDTH - 1) and obstacle[1] in (0, HEIGHT - 1)) or \
+                ((obstacle[0] in (0, WIDTH - 1) and obstacle[0] != target[0]) or \
+                 (obstacle[1] in (0, HEIGHT - 1) and obstacle[1] != target[1])):
                 game = False
                 SPACE = Object(config['space']['symbol']['loss'], config['space']['colour']['loss'].replace("\\x1b", "\x1b"))
                 OBSTACLE = Object(config['obstacle']['symbol']['loss'], config['obstacle']['colour']['loss'].replace("\\x1b", "\x1b"))
