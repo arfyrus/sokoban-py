@@ -36,24 +36,29 @@ def sync():
     grid[index(player)] = PLAYER
     grid[index(obstacle)] = OBSTACLE
 
-def print_grid(win = True):
+def print_grid(status = 'D'):
     sync()
-    if not game:
-        if win:
-            print('\x1b[32m', end='')
-        else:
-            print('\x1b[31m', end='')
+    match status:
+        case 'W':
+            print(config['edge']['win'].replace("\\x1b", "\x1b"), end='')
+        case 'L':
+            print(config['edge']['loss'].replace("\\x1b", "\x1b"), end='')
+        case _:
+            print(config['edge']['neutral'].replace("\\x1b", "\x1b"), end='')
+
     print('+-' + '-' * WIDTH + '-+')
     for y in range(HEIGHT):
         print('| ', end='')
         for x in range(WIDTH):
             print('\x1b[0m', end='')
             print(grid[index((x, y))], end='')
-        if not game:
-            if win:
-                print('\x1b[32m', end='')
-            else:
-                print('\x1b[31m', end='')
+        match status:
+            case 'W':
+                print(config['edge']['win'].replace("\\x1b", "\x1b"), end='')
+            case 'L':
+                print(config['edge']['loss'].replace("\\x1b", "\x1b"), end='')
+            case _:
+                print(config['edge']['neutral'].replace("\\x1b", "\x1b"), end='')
         print(' |')
     print('+-' + '-' * WIDTH + '-+')
     print('\x1b[0m', end='')
@@ -97,7 +102,7 @@ if __name__ == "__main__":
                     OBSTACLE = Object(config['obstacle']['symbol']['win'], config['obstacle']['colour']['win'].replace("\\x1b", "\x1b"))
                     PLAYER = Object(config['player']['symbol']['win'], config['player']['colour']['win'].replace("\\x1b", "\x1b"))
                     TARGET = Object(config['target']['symbol']['win'], config['target']['colour']['win'].replace("\\x1b", "\x1b"))
-                    print_grid()
+                    print_grid('W')
                     print("You win!")
                     break
             else:
@@ -111,6 +116,6 @@ if __name__ == "__main__":
                 OBSTACLE = Object(config['obstacle']['symbol']['loss'], config['obstacle']['colour']['loss'].replace("\\x1b", "\x1b"))
                 PLAYER = Object(config['player']['symbol']['loss'], config['player']['colour']['loss'].replace("\\x1b", "\x1b"))
                 TARGET = Object(config['target']['symbol']['loss'], config['target']['colour']['loss'].replace("\\x1b", "\x1b"))
-                print_grid(False)
+                print_grid('L')
                 print("You're stuck!")
                 break
